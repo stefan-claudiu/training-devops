@@ -1,9 +1,10 @@
 pipeline {
-    agent any {
+    agent any 
+    
         environment {
             MY_ENV_VAR='Hello World'
         }
-    }
+    
 
     stages {
         stage('Checkout') {
