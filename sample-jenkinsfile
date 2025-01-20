@@ -1,6 +1,6 @@
 pipeline {
     agent any 
-    
+
         environment {
             MY_ENV_VAR='Hello World'
         }
@@ -39,7 +39,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh 'echo "Value of the ENV Variable is "$MY_ENV_VAR""'
+                sh 'echo "Value of the ENV Variable is ${MY_ENV_VAR}"'
             }
         }
     }
