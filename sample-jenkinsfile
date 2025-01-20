@@ -1,0 +1,54 @@
+pipeline {
+    agent any {
+        environment {
+            MY_ENV_VAR='Hello World'
+        }
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                    script {
+                        //Clone the git repository
+                        def gitRepoUrl = 'https://github.com/stefan-claudiu/training-devops.git'
+
+                        checkout([$class: 'GitSCM', 
+                        branches: [[name: '*/main']], 
+                        userRemoteConfigs: [[url: gitRepoUrl]], 
+                        extensions: [[$class: 'CleanBeforeCheckout'], [$class: 'CloneOption', noTags: false, shallow: true, depth: 1]]
+                        ])
+                    }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh '''
+                    ls
+                    echo "In Build Step"
+                '''
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'echo "In Test Step"'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh 'echo "Value of the ENV Variable is "$MY_ENV_VAR""'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline succeeded!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
+    }
+}
