@@ -23,10 +23,14 @@ pipeline {
         }
 
         stage('Build') {
+            environment {
+                LOG_INFO='Logging into the BUILD Stage'
+            }
             steps {
                 sh '''
                     ls
                     echo "In Build Step"
+                    echo "What are you doing? ${LOG_INFO}"
                 '''
             }
         }
