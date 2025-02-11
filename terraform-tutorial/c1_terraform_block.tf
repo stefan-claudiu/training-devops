@@ -10,4 +10,5 @@ terraform {
 
 provider "aws" {
   source = default
+  region = "us-east-1"
 }
